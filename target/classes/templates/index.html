@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title> Poseiden </title>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gwendolyn:wght@400;700&family=Macondo+Swash+Caps&family=Pirata+One&family=UnifrakturMaguntia&display=swap" rel="stylesheet">
+</head>
+<body>
+<!--<div th:replace="~{partial/header}"></div>-->
+<!--<div th:if="${#httpServletRequest.remoteUser != null}">-->
+<!--    <div th:replace="~{partial/menu}"></div>-->
+<!--</div>-->
+<div id="main">
+    <h1>OLA</h1>
+    <td th:text="${user.email}"></td>
+    <form th:action="@{/logout}" method="post">
+        <button type="submit">Logout</button>
+    </form>
+<!--    <img th:src="@{/img/logo.png}">-->
+</div>
+</body>
+</html>

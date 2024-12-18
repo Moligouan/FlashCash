@@ -1,0 +1,14 @@
+<header>
+    <div th:if="${#httpServletRequest.remoteUser != null}">
+      <p>Bienvenue, [[${#httpServletRequest.remoteUser}]] !</p>
+      <form th:action="@{/app-logout}" method="POST">
+        <input type="submit" value="Logout" class="log-btn"/>
+      </form>
+    </div>
+    <div th:if="${#httpServletRequest.remoteUser == null}">
+      <a href="app/login" class="log-btn">Login</a>
+    </div>
+  
+
+  
+</header>

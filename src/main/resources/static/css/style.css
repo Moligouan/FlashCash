@@ -1,0 +1,257 @@
+* {
+    color: white;
+}
+
+body {
+    background-color: #080816;
+}
+
+header div {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 10px 10px;
+}
+
+header p {
+    color: white;
+}
+
+.log-btn {
+    background-color: lightgrey;
+    color: black;
+    border-radius: 10px;
+    margin-left: 10px;
+    padding: 2px 5px;
+    text-decoration: none;
+    border: solid 2px gray;
+}
+
+.log-btn:hover {
+    background-color: aqua;
+    border-color: blue;
+}
+
+.btn-user {
+    margin-left: auto;
+}
+
+#menu {
+    margin: 0px 205px;
+    display: flex;
+    align-items: flex-end;
+}
+
+#menu a {
+    background-color: #c99868;
+    color: black;
+    padding: 10px;
+    text-decoration: none;
+    border-radius: 5px 5px 0 0;
+    margin-right: 10px;
+    margin-top: 20px;
+    box-shadow: inset 0px 0px 10px #9a6b38;
+    transition: 0.5s;
+}
+
+#menu a:hover {
+    padding-bottom: 30px;
+    margin-top: 0px;
+    transition: 0.5s;
+}
+
+#main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-image: url(/img/document_texture.jpg);
+    background-size: cover;
+    /* background-color: #a47a3c; */
+    margin: 0px 200px;
+    position:absolute;
+    border-radius: 2px 5px 5px 2px;
+    width: -webkit-fill-available;
+    min-height: 400px;
+}
+
+#main h1 {
+    font-family: "Pirata One", system-ui;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 100px;
+    margin: 30px 0;
+    color: #181818;
+    text-shadow: 0px 0px 5px white;
+}
+
+#main h2,
+.formular h2 {
+    font-family: "Pirata One", system-ui;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 50px;
+    margin: 30px 0 0 0;
+    color: #181818;
+    text-shadow: 0px 0px 5px white;
+}
+
+#main img {
+    width : 30%;
+}
+
+#liste {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-image: url(/img/paper_texture.jpg);
+    background-size: cover;
+    width: 95%;
+    margin-top: 15px;
+    padding-bottom: 20px;
+    min-height: 350px;
+    border-radius: 3px;
+}
+
+#ajout {
+    color: #181818;
+    text-decoration: none;
+    margin: 5px;
+    margin-right: 12%;
+    align-self: flex-end;
+}
+
+table {
+    border: solid 1px #181818;
+    border-collapse: collapse;
+    width: 80%;
+}
+
+thead {
+    border-bottom: solid 1px #181818;
+}
+
+td, th {
+    color: #181818;
+    border: solid 1px #181818;
+    text-align: center;
+}
+
+th , #ajout, .element label, .btns{
+    font-family: "Quintessential", serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+td {
+    font-family: "Caveat", cursive;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+}
+
+tr:nth-child(2n) td {
+    font-family: "Shadows Into Light", cursive;
+    font-weight: 400;
+    font-style: normal;
+} 
+
+tr:nth-child(3n + 1) td {
+    font-family: "Indie Flower", cursive;
+    font-weight: 400;
+    font-style: normal;
+} 
+
+tr:nth-child(4n + 2) td {
+    font-family: "Reenie Beanie", serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 20px;
+} 
+
+tr:nth-child(5n + 3) td {
+    font-family: "Over the Rainbow", cursive;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 12px;
+} 
+
+td a {
+    color: #181818;
+    text-decoration: none;
+}
+
+#add_form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-image: url(/img/new_paper_texture.jpg);
+    background-size: cover;
+    margin: 0px 200px;
+    position:absolute;
+    border-radius: 3px;
+    width: -webkit-fill-available;
+    min-height: 400px;
+}
+
+#modiform {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-image: url(/img/used_paper_texture.jpg);
+    background-size: cover;
+    margin: 0px 200px;
+    position:absolute;
+    border-radius: 3px;
+    width: -webkit-fill-available;
+    min-height: 400px;
+}
+
+.formular form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 30px;
+}
+
+.element , .btns{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 30px;
+}
+
+.element label {
+    color: black;
+    margin-left: 10%;
+    margin-right: 5px;
+}
+
+.element div {
+    flex-grow: 1;
+    padding-right: 10%;
+}
+
+.element div input{
+    color: black;
+    width: 100%;
+    background: none;
+    border: none;
+    border-bottom: solid 1px black;
+}
+
+.btns {
+    margin-top: 30px;
+    justify-content: center;
+    gap: 20%;
+}
+
+.btns input {
+    color: black;
+    background: none;
+    border-color: #6b9e45;
+    border-radius: 5px;
+}
+
+.btns a {
+    color: #ac3235;
+}

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+	  xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="utf-8"/>
+	<title>Home</title>
+	<link rel="stylesheet" th:href="@{/css/style.css}"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gwendolyn:wght@400;700&family=Macondo+Swash+Caps&family=Pirata+One&family=UnifrakturMaguntia&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Quintessential&display=swap" rel="stylesheet">
+</head>
+<body>
+	<div th:replace="~{partial/header}"></div>
+	<div id="add_form" class="formular">
+		<h2>Add New Rating</h2>
+		<form action="#" th:action="@{/rating/validate}" th:object="${rating}" method="post" class="form-horizontal" style="width: 100%">
+			<div class="element">
+				<label for="moodysRating" class="col-sm-2 control-label">Moodys Rating :</label>
+				<div class="col-sm-10">
+					<input type="text" th:field="*{moodysRating}" id="moodysRating" placeholder="Moodys Rating" class="col-4">
+					<p class="text-danger" th:if="${#fields.hasErrors('moodysRating')}" th:errors="*{moodysRating}"></p>
+				</div>
+			</div>
+			<div class="element">
+				<label for="sandPRating" class="col-sm-2 control-label">Sand P Rating :</label>
+				<div class="col-sm-10">
+					<input type="text" th:field="*{sandPRating}" id="sandPRating" placeholder="Sand P Rating" class="col-4">
+					<p class="text-danger" th:if="${#fields.hasErrors('sandPRating')}" th:errors="*{sandPRating}"></p>
+				</div>
+			</div>
+			<div class="element">
+				<label for="fitchRating" class="col-sm-2 control-label">Fitch Rating :</label>
+				<div class="col-sm-10">
+					<input type="text" th:field="*{fitchRating}" id="fitchRating" placeholder="Fitch Rating" class="col-4">
+					<p class="text-danger" th:if="${#fields.hasErrors('fitchRating')}" th:errors="*{fitchRating}"></p>
+				</div>
+			</div>
+			<div class="element">
+				<label for="orderNumber" class="col-sm-2 control-label">Order :</label>
+				<div class="col-sm-10">
+					<input type="number" th:field="*{orderNumber}" id="orderNumber" placeholder="Order" class="col-4">
+					<p class="text-danger" th:if="${#fields.hasErrors('fitchRating')}" th:errors="*{orderNumber}"></p>
+				</div>
+			</div>
+
+			<div class="btns">
+				<input class="btn btn-primary btn-sm" type="submit" value="Add Rating">
+				<a class="btn btn-danger btn-sm" href="/rating/list">Cancel</a>
+			</div>
+		</form>
+	</div>
+</body>
+</html>
