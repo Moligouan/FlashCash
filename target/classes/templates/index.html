@@ -20,6 +20,14 @@
     <p th:text="${user.email}"></p>
     <p th:text="${user.account.amount}"></p>
     <a href="/depot">Add Money</a>
+    <span th:if="${user.account.iban != null}">
+        <p th:text="|${user.account.iban}|"></p>
+        <a href="/retrait">Retirer de l'argent</a>
+    </span>
+    <span th:if="${user.account.iban == null}">
+        <a href="/add-iban">Ajouter un Iban</a>
+        <p>pour retiter de l'argent</p>
+    </span>
     <a href="/friends">Amis</a>
 <!--    <img th:src="@{/img/logo.png}">-->
 </div>

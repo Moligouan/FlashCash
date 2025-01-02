@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributor">
+    <meta name="generator" content="Hugo 0.82.0">
+    <title>Register form</title>
+    <link href="bootstrp.min.css" rel="stylesheet">
+    <link href="index.css" rel="stylesheet">
+</head>
+<body class="signin-form">
+<div class="container">
+    <div class="row">
+        <div class="col-lg-9 col-xl-5 mx-auto">
+            <div class="card flew-row my-5 border-0 shadow rounded-3 oveflow-hidden">
+                <div class="card-body p-4 p-sm-5">
+                    <div class="logo-card">
+                        <img class="logo" th:src="@{/images/logo.png}" alt="">
+                    </div>
+                    <h4 class="card-title text-center mb-5 fw-light fs-5">Ajout d'Iban</h4>
+                    <form th:action="@{/add-iban}" method="post" class="form-signin">
+                        <div class="form-floating mb-3">
+                            <input type="text" name="iban" class="form-control floatingInput" id="floatingInputIban" placeholder="iban"/>
+                            <label for="floatingInputIban">Iban</label>
+                        </div>
+                        <div class="d-grid mb-2">
+                            <button class="btn btn-lg btn-primary btn-login fw-bold text-uppercase" type="submit">
+                                Ajouter Iban
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

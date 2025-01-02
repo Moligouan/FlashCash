@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title> Fulashu Cashu </title>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gwendolyn:wght@400;700&family=Macondo+Swash+Caps&family=Pirata+One&family=UnifrakturMaguntia&display=swap" rel="stylesheet">
+</head>
+<body>
+<div th:replace="~{partial/header}"></div>
+<!--<div th:if="${#httpServletRequest.remoteUser != null}">-->
+<!--    <div th:replace="~{partial/menu}"></div>-->
+<!--</div>-->
+<div id="main">
+	<h3>Liste d'amis</h3>
+	<a href="/add-friend">Ajouter un amis</a>
+	<table class="table table-bordered">
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th>Email</th>
+				<th>Action</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="link : ${user.links}">
+				<td style="width: 10%" th:text="|${link.user2.firstName} ${link.user2.lastName}|"></td>
+				<td th:text="${link.user2.email}"></td>
+				<td style="width: 15%" class="text-center">
+					<a th:href="@{/transfer/{id}(id=${link.user2.id})}">Transfer</a>&nbsp;|&nbsp;
+					<!-- <a th:href="@{/bidList/delete/{id}(id=${bid.BidListId})}">Delete</a> -->
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+</body>
+</html>

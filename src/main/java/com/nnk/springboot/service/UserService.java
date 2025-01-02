@@ -55,7 +55,7 @@ public class UserService {
 
     public void AddIban(AddIbanForm form, User user) {
         UserAccount account = user.getAccount();
-        String iban = account.getIban() + form.getIban();
+        String iban = form.getIban();
         account.setIban(iban);
         user.setAccount(account);
         userRepository.save(user);
