@@ -1,3 +1,10 @@
+@font-face {
+    font-family: 'Ethnocentric';
+    src: url('../font/Ethnocentric.otf') format('opentype');
+    font-weight: normal;
+    font-style: italic;
+}
+
 * {
     color: white;
 }
@@ -6,11 +13,19 @@ body {
     background-color: #080816;
 }
 
-header div {
+header {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     align-items: center;
-    padding: 10px 10px;
+}
+
+#logo text {
+    font-family: 'Ethnocentric', sans-serif;
+}
+
+header span {
+    display: flex;
+    align-items: center;
 }
 
 header p {
@@ -121,18 +136,18 @@ header p {
 }
 
 table {
-    border: solid 1px #181818;
+    border: solid 1px white;
     border-collapse: collapse;
     width: 80%;
 }
 
 thead {
-    border-bottom: solid 1px #181818;
+    border-bottom: solid 1px white;
 }
 
 td, th {
-    color: #181818;
-    border: solid 1px #181818;
+    color: white;
+    border: solid 1px white;
     text-align: center;
 }
 

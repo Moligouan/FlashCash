@@ -1,9 +1,19 @@
+@font-face {
+    font-family: 'Ethnocentric';
+    src: url('../font/Ethnocentric.otf') format('opentype');
+    font-weight: normal;
+    font-style: italic;
+}
 * {
     color: white;
 }
 
 body {
     background-color: #080816;
+}
+
+#logo text {
+    font-family: 'Ethnocentric', sans-serif;
 }
 
 header div {

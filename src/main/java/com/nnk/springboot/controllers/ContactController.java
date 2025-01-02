@@ -2,6 +2,10 @@ package com.nnk.springboot.controllers;
 
 import com.nnk.springboot.model.Link;
 import com.nnk.springboot.repositories.UserAccountRepository;
+import com.nnk.springboot.service.LinkService;
+import com.nnk.springboot.service.SessionService;
+import com.nnk.springboot.service.UserService;
+import com.nnk.springboot.service.form.SignUpForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,12 +14,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class ContactController {
 
-    @Autowired
-    private UserAccountRepository bidListRepository;
+//    private final SessionService sessionService;
+//    private final UserService userService;
+//    private final LinkService linkService;
 
 //    @RequestMapping("/bidList/list")
 //    public String home(Model model)
@@ -24,9 +30,9 @@ public class ContactController {
 //        return "bidList/list";
 //    }
 
-//    @GetMapping("/bidList/add")
-//    public String addBidForm(Link bid) {
-//        return "bidList/add";
+//    @GetMapping("/add")
+//    public ModelAndView showRegisterForm() {
+//        return new ModelAndView("signup", "signUpForm", new SignUpForm());
 //    }
 
 //    @PostMapping("/bidList/validate")

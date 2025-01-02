@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title> Poseiden </title>
+    <title> Fulashu Cashu </title>
     <link rel="stylesheet" th:href="@{/css/style.css}"/>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,8 +13,13 @@
 <!--    <div th:replace="~{partial/menu}"></div>-->
 <!--</div>-->
 <div id="main">
-    <h1>OLA</h1>
-    <td th:text="${user.email}"></td>
+    <svg xmlns="http://www.w3.org/2000/svg" width="400" height="100" viewBox="0 0 400 100" id="logo">
+        <polygon points="60,10 40,50 70,50 50,90" fill="#007BFF"/>
+        <text x="90" y="65" font-size="30" fill="white">Flash Cash</text>
+    </svg>
+    <p th:text="${user.email}"></p>
+    <p th:text="${user.account.accountId}"></p>
+    <p th:text="${user.account.amount}"></p>
     <form th:action="@{/logout}" method="post">
         <button type="submit">Logout</button>
     </form>

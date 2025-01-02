@@ -1,14 +1,15 @@
 package com.nnk.springboot.controllers;
 
+import com.nnk.springboot.model.Link;
 import com.nnk.springboot.model.Transfer;
 import com.nnk.springboot.model.User;
+import com.nnk.springboot.model.UserAccount;
 import com.nnk.springboot.repositories.UserRepository;
 import com.nnk.springboot.service.LinkService;
 import com.nnk.springboot.service.SessionService;
 import com.nnk.springboot.service.TransferService;
 import com.nnk.springboot.service.UserService;
-import com.nnk.springboot.service.form.SignInForm;
-import com.nnk.springboot.service.form.SignUpForm;
+import com.nnk.springboot.service.form.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -23,13 +24,11 @@ import java.util.List;
 public class UserController {
     private final LinkService linkService;
     private final UserService userService;
-    private final TransferService transferService;
     private final SessionService sessionService;
 
-    public UserController(LinkService linkService, UserService userService, TransferService transferService, SessionService sessionService) {
+    public UserController(LinkService linkService, UserService userService, SessionService sessionService) {
         this.linkService = linkService;
         this.userService = userService;
-        this.transferService = transferService;
         this.sessionService = sessionService;
     }
 
@@ -43,10 +42,10 @@ public class UserController {
     }
 
     @PostMapping("/signup")
-    public ModelAndView processRequest(@ModelAttribute("signUpForm") SignUpForm form)
+    public String processRequest(@ModelAttribute("signUpForm") SignUpForm form)
     {
         userService.registration(form);
-        return new ModelAndView("signin", "signInForm", new SignInForm());
+        return "redirect:/signin";
     }
 
     @GetMapping("/signup")
@@ -54,41 +53,73 @@ public class UserController {
         return new ModelAndView("signup", "signUpForm", new SignUpForm());
     }
 
-    @GetMapping("/home")
-    public String logOff(Model model) {
-        return "home";
+//    @GetMapping("/home")
+//    public String logOff(Model model) {
+//        return "home";
+//    }
+
+//    @GetMapping("profile")
+//    public ModelAndView profile(Model model) {
+//        User user = sessionService.sessionUser();
+//        model.addAttribute("user", user);
+//        return new ModelAndView("profile");
+//    }
+
+    @GetMapping("/add-iban")
+    public ModelAndView getAddConnectionForm(Model model) {
+        return new ModelAndView("account/add-iban", "addIbanForm", new AddIbanForm());
     }
 
-    @GetMapping("profile")
-    public ModelAndView profile(Model model) {
+    @PostMapping("add-iban")
+    public String addIban(Model model, @ModelAttribute("addIbanForm") AddIbanForm form) {
+        User user = sessionService.sessionUser();
+        userService.AddIban(form, user);
+        return "redirect:/";
+    }
+
+    @GetMapping("/depot")
+    public ModelAndView getDepotForm(Model model) {
+        return new ModelAndView("account/depot", "depotForm", new DepotForm());
+    }
+
+    @PostMapping("depot")
+    public String updateDepot(Model model, @ModelAttribute("depotForm") DepotForm form) {
+        User user = sessionService.sessionUser();
+        userService.AddMoney(form, user);
+        return "redirect:/";
+    }
+
+    @GetMapping("/retrait")
+    public ModelAndView getRetraitForm(Model model) {
+        return new ModelAndView("account/retrait", "depotForm", new DepotForm());
+    }
+
+    @PostMapping("retrait")
+    public String updateRetrait(Model model, @ModelAttribute("depotForm") DepotForm form) {
+        User user = sessionService.sessionUser();
+        userService.PickMoney(form, user);
+        return "redirect:/";
+    }
+
+    @GetMapping("/friends")
+    public ModelAndView friendsList(Model model) {
         User user = sessionService.sessionUser();
         model.addAttribute("user", user);
-        return new ModelAndView("profile");
+        return new ModelAndView("account/friends");
     }
 
-//    @GetMapping("add-iban")
-//    public ModelAndView getAddConnectionForm(Model model) {
-//        return new ModelAndView("add-iban", "addIbanForm", new AddIbanForm());
-//    }
+    @GetMapping("/add-friend")
+    public ModelAndView getFriendForm(Model model) {
+        return new ModelAndView("link/add-friend", "friendForm", new FriendForm());
+    }
 
-//    @PostMapping("add-iban")
-//    public ModelAndView addIban(Model model, @ModelAttribute("addIbanForm") AddIbanForm form) {
-//        userService.addIban(form);
-//        User user = sessionService.sessionUser();
-//        model.addAttribute("user", user);
-//        return new ModelAndView("profile");
-//    }
-
-//    @GetMapping("email")
-//    public ModelAndView getEmailForm(Model model) {
-//        return new ModelAndView("email", "emailForm", new EmailForm());
-//    }
-//
-//    @PostMapping("email")
-//    public ModelAndView sendEmail(Model model, @ModelAttribute("EmailForm") EmailForm form) {
-//        userService.addEmail(form);
-//        User user = sessionService.sessionUser();
-//        model.addAttribute("user", user);
-//        return new ModelAndView("profile");
-//    }
+    @PostMapping("/add-friend")
+    public String updateFriends(Model model, @ModelAttribute("friendForm") FriendForm form) {
+        User user = sessionService.sessionUser();
+        if (userService.checkUser(form.getEmail())){
+            linkService.createLink(user, form.getEmail());
+            return "redirect:/";
+        }
+        return "redirect:/add-friend";
+    }
 }

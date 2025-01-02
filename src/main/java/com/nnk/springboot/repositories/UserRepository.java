@@ -13,4 +13,7 @@ import java.util.Optional;
 public interface UserRepository extends JpaRepository<User, Long>, CrudRepository<User, Long> {
     @Query(value="SELECT u FROM User u LEFT JOIN FETCH u.links WHERE u.email=:email")
     public Optional<User> findUserByMail(String email);
+
+    @Query(value="SELECT u FROM User u LEFT JOIN FETCH u.links WHERE u.id=:id")
+    public Optional<User> findUserById(Integer id);
 }

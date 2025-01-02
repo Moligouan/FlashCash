@@ -1,13 +1,19 @@
 <header>
-    <div th:if="${#httpServletRequest.remoteUser != null}">
-      <p>Bienvenue, [[${#httpServletRequest.remoteUser}]] !</p>
-      <form th:action="@{/app-logout}" method="POST">
-        <input type="submit" value="Logout" class="log-btn"/>
-      </form>
-    </div>
-    <div th:if="${#httpServletRequest.remoteUser == null}">
-      <a href="app/login" class="log-btn">Login</a>
-    </div>
+  <a href="/">
+    <svg xmlns="http://www.w3.org/2000/svg" width="400" height="100" viewBox="0 0 400 100" id="logo">
+      <polygon points="60,10 40,50 70,50 50,90" fill="#007BFF"/>
+      <text x="90" y="65" font-size="30" fill="white">Flash Cash</text>
+    </svg>
+  </a>
+  <span th:if="${user != null}">
+    <p th:text="|${user.firstName} ${user.lastName}|"></p>
+    <form th:action="@{/logout}" method="POST">
+      <input type="submit" value="Logout" class="log-btn"/>
+    </form>
+    <!-- <div th:if="${user == null}">
+      <a href="/signin" class="log-btn">Login</a>
+    </div> -->
+  </span>
   
 
   
