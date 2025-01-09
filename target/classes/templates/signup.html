@@ -1,63 +1,61 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributor">
-    <meta name="generator" content="Hugo 0.82.0">
-    <title>Register form</title>
-    <link href="bootstrp.min.css" rel="stylesheet">
-    <link href="index.css" rel="stylesheet">
+    <title> Fulashu Cashu </title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+    <link rel="stylesheet" th:href="@{/css/spark.css}" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Prosto+One&display=swap" rel="stylesheet">
 </head>
-<body class="signup-form">
-<div class="container">
-    <div class="row">
-        <div class="col-lg-9 col-xl-5 mx-auto">
-            <div class="card flew-row my-5 border-0 shadow rounded-3 oveflow-hidden">
-                <div class="card-body p-4 p-sm-5">
-                    <div class="logo-card">
-                        <img class="logo" th:src="@{/images/logo.png}" alt="">
-                    </div>
-                    <h4 class="card-title text-center mb-5 fw-light fs-5">Sign up</h4>
-                    <form th:action="@{/signup}" method="post" class="form-signup">
-                        <div class="form-floating mb-3">
-                            <input type="text" name="firstName" class="form-control floatingInput" id="floatingInputUsername" placeholder="First Name"/>
-                            <label for="floatingInputUsername">First Name</label>
-                        </div>
-                        <div class="form-floating mb-3">
-                            <input type="text" name="lastName" class="form-control floatingInput" id="floatingInputLastName" placeholder="Last Name"/>
-                            <label for="floatingInputLastName">Last Name</label>
-                        </div>
-                        <div class="form-floating mb-3">
-                            <input type="text" name="email" class="form-control floatingInput" id="floatingInputEmail" placeholder="Email"/>
-                            <label for="floatingInputEmail">Email Address</label>
-                        </div>
-                        <div class="form-floating mb-3">
-                            <input type="password" name="password" class="form-control floatingInput" id="floatingInputPassword" placeholder="Password"/>
-                            <label for="floatingInputPassword">Password</label>
-                        </div>
-                        <div class="form-floating mb-3">
-                            <input type="password" name="confirmPassword" class="form-control floatingInput" id="floatingInputPasswordConfirm" placeholder="Confirm Password"/>
-                            <label for="floatingInputPasswordConfirm">Confirm Password</label>
-                        </div>
-                        <div class="d-grid mb-2">
-                            <button class="btn btn-lg btn-primary btn-login fw-bold text-uppercase" type="submit">
-                                Sign Up
-                            </button>
-                        </div>
-                        <a class="d-block text-center mt-2 small" href="/flashcash/signin">Have an accont? Sign In.</a>
-                        <hr class="my-4">
-<!--                        <div class="d-grid mb-2">-->
-<!--                            <button class="btn btn-lg btn-google btn-login fw-bold text-uppercase" type="submit">-->
-<!--                                Connect With Google.-->
-<!--                            </button>-->
-<!--                        </div>-->
-                    </form>
-                </div>
+
+<body>
+    <div th:replace="~{partial/header}"></div>
+    <div id="main">
+        <h1 id="dynamic-header">Inscription</h1>
+        <form th:action="@{/signup}" method="post" class="form-signup">
+            <div class="text-input">
+                <input type="text" name="firstName" class="form-control floatingInput" id="floatingInputUsername"
+                    placeholder="Prénom" />
             </div>
-        </div>
+            <div class="text-input">
+                <input type="text" name="lastName" class="form-control floatingInput" id="floatingInputLastName"
+                    placeholder="Nom" />
+            </div>
+            <div class="text-input">
+                <input type="text" name="email" class="form-control floatingInput" id="floatingInputEmail"
+                    placeholder="Email" />
+            </div>
+            <div class="text-input">
+                <input type="password" name="password" class="form-control floatingInput" id="floatingInputPassword"
+                    placeholder="Mot de Passe" />
+            </div>
+            <div class="text-input">
+                <input type="password" name="confirmPassword" class="form-control floatingInput"
+                    id="floatingInputPasswordConfirm" placeholder="Confirmez Mot de Passe" />
+            </div>
+            <div th:if="${errorMessageMdp != null}" class="error">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+                <p th:text="${errorMessageMdp}"></p>
+            </div>
+            <div class="d-grid mb-2">
+                <button class="btn btn-lg btn-primary btn-login fw-bold text-uppercase" type="submit">
+                    S'Inscrire
+                </button>
+            </div>
+            <a class="d-block text-center mt-2 small" href="/flashcash/signin">Déjà un compte? Connectez vous.</a>
+            <!--                        <div class="d-grid mb-2">-->
+            <!--                            <button class="btn btn-lg btn-google btn-login fw-bold text-uppercase" type="submit">-->
+            <!--                                Connect With Google.-->
+            <!--                            </button>-->
+            <!--                        </div>-->
+        </form>
     </div>
-</div>
+    <script type="module" th:src="@{/js/scriptNeon.js}" defer></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script th:src="@{/js/spark.js}" defer></script>
 </body>
+
 </html>

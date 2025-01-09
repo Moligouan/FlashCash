@@ -1,16 +1,11 @@
 package com.nnk.springboot.controllers;
 
-import com.nnk.springboot.model.Link;
-import com.nnk.springboot.model.Transfer;
-import com.nnk.springboot.model.User;
-import com.nnk.springboot.model.UserAccount;
+import com.nnk.springboot.model.*;
 import com.nnk.springboot.repositories.UserRepository;
-import com.nnk.springboot.service.LinkService;
-import com.nnk.springboot.service.SessionService;
-import com.nnk.springboot.service.TransferService;
-import com.nnk.springboot.service.UserService;
+import com.nnk.springboot.service.*;
 import com.nnk.springboot.service.form.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,39 +14,55 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
+import java.util.Objects;
 
 @Controller
 public class UserController {
     private final LinkService linkService;
     private final UserService userService;
     private final SessionService sessionService;
+    private final FlashCashAccountService flashCashAccountService;
 
-    public UserController(LinkService linkService, UserService userService, SessionService sessionService) {
+    public UserController(LinkService linkService, UserService userService, SessionService sessionService, FlashCashAccountService flashCashAccountService) {
         this.linkService = linkService;
         this.userService = userService;
         this.sessionService = sessionService;
+        this.flashCashAccountService = flashCashAccountService;
     }
 
     @GetMapping("/")
     public ModelAndView home(Model model) {
         User user = sessionService.sessionUser();
         model.addAttribute("user", user);
-//        List<Transfer> transactions = transferService.findTransaction();
-//        model.addAttribute("transfers", transactions);
         return new ModelAndView("index");
     }
 
-    @PostMapping("/signup")
-    public String processRequest(@ModelAttribute("signUpForm") SignUpForm form)
-    {
-        userService.registration(form);
-        return "redirect:/signin";
+    @GetMapping("/flash-cash")
+    public ModelAndView flashCash(Model model) {
+        User user = sessionService.sessionUser();
+        model.addAttribute("user", user);
+        List<FlashCashAccount> flashCashAccount = flashCashAccountService.FlashCashInfo();
+        model.addAttribute("flashCash", flashCashAccount);
+        return new ModelAndView("flashCashAccount");
     }
 
     @GetMapping("/signup")
     public ModelAndView showRegisterForm() {
         return new ModelAndView("signup", "signUpForm", new SignUpForm());
     }
+
+    @PostMapping("/signup")
+    public String processRequest(Model model, @ModelAttribute("signUpForm") SignUpForm form)
+    {
+        if (Objects.equals(form.getPassword(), form.getConfirmPassword())) {
+            userService.registration(form);
+            return "redirect:/signin";
+        } else {
+            model.addAttribute("errorMessageMdp", "Erreur : Mots de Passes non identiques.");
+            return "signup";
+        }
+    }
+
 
 //    @GetMapping("/home")
 //    public String logOff(Model model) {
@@ -67,18 +78,28 @@ public class UserController {
 
     @GetMapping("/add-iban")
     public ModelAndView getAddConnectionForm(Model model) {
+        User user = sessionService.sessionUser();
+        model.addAttribute("user", user);
         return new ModelAndView("account/add-iban", "addIbanForm", new AddIbanForm());
     }
 
     @PostMapping("add-iban")
     public String addIban(Model model, @ModelAttribute("addIbanForm") AddIbanForm form) {
         User user = sessionService.sessionUser();
-        userService.AddIban(form, user);
-        return "redirect:/";
+        try {
+            userService.AddIban(form, user);
+            return "redirect:/";
+        } catch (IllegalArgumentException e) {
+            model.addAttribute("user", user); // Repasser l'utilisateur si nécessaire
+            model.addAttribute("errorMessage", "Erreur : IBAN invalide.");
+            return "account/add-iban";
+        }
     }
 
     @GetMapping("/depot")
     public ModelAndView getDepotForm(Model model) {
+        User user = sessionService.sessionUser();
+        model.addAttribute("user", user);
         return new ModelAndView("account/depot", "depotForm", new DepotForm());
     }
 
@@ -91,14 +112,22 @@ public class UserController {
 
     @GetMapping("/retrait")
     public ModelAndView getRetraitForm(Model model) {
+        User user = sessionService.sessionUser();
+        model.addAttribute("user", user);
         return new ModelAndView("account/retrait", "depotForm", new DepotForm());
     }
 
     @PostMapping("retrait")
     public String updateRetrait(Model model, @ModelAttribute("depotForm") DepotForm form) {
         User user = sessionService.sessionUser();
-        userService.PickMoney(form, user);
-        return "redirect:/";
+        if (userService.checkRetrait(form, user)) {
+            userService.PickMoney(form, user);
+            return "redirect:/";
+        } else {
+            model.addAttribute("user", user); // Repasser l'utilisateur si nécessaire
+            model.addAttribute("errorMessage", "Erreur : fonds insuffisants.");
+            return "account/retrait"; // Retourner la vue directement
+        }
     }
 
     @GetMapping("/friends")
@@ -110,16 +139,30 @@ public class UserController {
 
     @GetMapping("/add-friend")
     public ModelAndView getFriendForm(Model model) {
+        User user = sessionService.sessionUser();
+        model.addAttribute("user", user);
         return new ModelAndView("link/add-friend", "friendForm", new FriendForm());
     }
 
     @PostMapping("/add-friend")
     public String updateFriends(Model model, @ModelAttribute("friendForm") FriendForm form) {
         User user = sessionService.sessionUser();
-        if (userService.checkUser(form.getEmail())){
+        model.addAttribute("user", user);
+        if (!userService.checkUser(form.getEmail())){
+            model.addAttribute("errorMessage", "Erreur : utilisateur inexistant ou mail invalide.");
+            return "link/add-friend";
+        }
+        else if (Objects.equals(form.getEmail(), user.getEmail())) {
+            model.addAttribute("errorMessage", "Erreur : votre mail ne compte pas.");
+            return "link/add-friend";
+        }
+        else if (linkService.checkLink(user, form.getEmail())) {
+            model.addAttribute("errorMessage", "Erreur : utilisateur déjà ami.");
+            return "link/add-friend";
+        }
+        else {
             linkService.createLink(user, form.getEmail());
             return "redirect:/";
         }
-        return "redirect:/add-friend";
     }
 }

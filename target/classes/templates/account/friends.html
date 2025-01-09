@@ -3,37 +3,43 @@
 <head>
     <title> Fulashu Cashu </title>
     <link rel="stylesheet" th:href="@{/css/style.css}"/>
+	<link rel="stylesheet" th:href="@{/css/spark.css}" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Gwendolyn:wght@400;700&family=Macondo+Swash+Caps&family=Pirata+One&family=UnifrakturMaguntia&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Prosto+One&display=swap" rel="stylesheet">
 </head>
-<body>
-<div th:replace="~{partial/header}"></div>
-<!--<div th:if="${#httpServletRequest.remoteUser != null}">-->
-<!--    <div th:replace="~{partial/menu}"></div>-->
-<!--</div>-->
-<div id="main">
-	<h3>Liste d'amis</h3>
-	<a href="/add-friend">Ajouter un amis</a>
-	<table class="table table-bordered">
-		<thead>
-			<tr>
-				<th>Name</th>
-				<th>Email</th>
-				<th>Action</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr th:each="link : ${user.links}">
-				<td style="width: 10%" th:text="|${link.user2.firstName} ${link.user2.lastName}|"></td>
-				<td th:text="${link.user2.email}"></td>
-				<td style="width: 15%" class="text-center">
-					<a th:href="@{/transfer/{id}(id=${link.user2.id})}">Transfer</a>&nbsp;|&nbsp;
-					<!-- <a th:href="@{/bidList/delete/{id}(id=${bid.BidListId})}">Delete</a> -->
-				</td>
-			</tr>
-		</tbody>
-	</table>
-</div>
+
+<body id="body-list">
+	<div th:replace="~{partial/header}"></div>
+	<div id="main">
+		<h1 id="dynamic-header">Liste d'amis</h1>
+		<a id="add-friend" href="/add-friend" title="Ajouter un amis"><i class="fa-solid fa-user-plus"></i></a>
+		<div id="liste-amis">
+			<div th:each="link : ${user.links}" class="amis">
+				<p th:text="|${link.user2.firstName} ${link.user2.lastName}|"
+					th:title="${link.user2.email}"></p>
+				<a th:href="@{/transfer/{id}(id=${link.user2.id})}" title="Transférer de l'argent">
+					<svg class="svg" version="1.0" xmlns="http://www.w3.org/2000/svg" width="32.000000pt"
+						height="32.000000pt" viewBox="0 0 32.000000 32.000000" preserveAspectRatio="xMidYMid meet">
+
+						<g transform="translate(0.000000,32.000000) scale(0.100000,-0.100000)" fill="#007BFF"
+							stroke="none">
+							<path d="M140 260 c0 -6 9 -14 20 -18 19 -7 18 -10 -15 -42 -19 -19 -35 -38
+						   -35 -42 0 -17 26 -7 57 24 27 27 33 29 39 15 12 -32 24 -17 24 28 l0 45 -45 0
+						   c-25 0 -45 -5 -45 -10z" />
+							<path d="M155 140 c-26 -27 -31 -29 -41 -15 -18 25 -24 18 -24 -30 l0 -45 45
+						   0 c47 0 60 15 25 28 -19 7 -18 10 15 42 19 19 35 38 35 42 0 18 -28 6 -55 -22z" />
+						</g>
+					</svg>
+				</a>
+				<!-- <a th:href="@{/bidList/delete/{id}(id=${bid.BidListId})}">Delete</a> -->
+			</div>
+		</div>
+	</div>
+	<script type="module" th:src="@{/js/scriptNeon.js}" defer></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script th:src="@{/js/spark.js}" defer></script>
 </body>
+
 </html>

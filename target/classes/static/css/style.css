@@ -10,14 +10,28 @@
 }
 
 body {
-    background-color: #080816;
+    background-color: #4e5259;
+    margin: 0;
+}
+
+#body-list {
+    overflow: visible;
 }
 
 header {
+    background-color: #080816;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding-right: 20px;
+    position: relative;
+    z-index: 2;
+    box-shadow: 0px -5px 20px #007BFF;
+    transition: box-shadow 0.15s;
+    /* animation: balancedFlicker 3s infinite; */
 }
+
+
 
 #logo text {
     font-family: 'Ethnocentric', sans-serif;
@@ -79,70 +93,215 @@ header p {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-image: url(/img/document_texture.jpg);
-    background-size: cover;
-    /* background-color: #a47a3c; */
-    margin: 0px 200px;
-    position:absolute;
-    border-radius: 2px 5px 5px 2px;
+    background-color: #4e5259;
     width: -webkit-fill-available;
     min-height: 400px;
+    position: relative;
+    z-index: 1;
 }
 
-#main h1 {
-    font-family: "Pirata One", system-ui;
+#main h1,
+h1 span {
+    font-family: 'Ethnocentric', sans-serif;
     font-weight: 400;
     font-style: normal;
-    font-size: 100px;
+    font-size: 60px;
     margin: 30px 0;
-    color: #181818;
-    text-shadow: 0px 0px 5px white;
+    color: white;
+    text-shadow: 0px 0px 6px white;
 }
 
-#main h2,
-.formular h2 {
-    font-family: "Pirata One", system-ui;
+/* h1 span {
+    text-shadow: 2px 2px 4px #000000;
+    color: #ffffff;
+  } */
+  
+h1 span.special {
+    text-shadow: 0px 0px 5px red;
+    /* color: #ff0000; */
+}
+
+h1 span.special2 {
+    text-shadow: 0px 0px 5px green;
+}
+  
+
+#main h2 {
+    font-family: "Prosto One", serif;
     font-weight: 400;
     font-style: normal;
     font-size: 50px;
-    margin: 30px 0 0 0;
-    color: #181818;
+    margin: 0px;
+    margin-bottom: 30px;
+    color: white;
     text-shadow: 0px 0px 5px white;
 }
 
-#main img {
-    width : 30%;
+.svg:hover {
+    filter: drop-shadow(0px 0px 5px #007BFF);
 }
 
-#liste {
+#account-money {
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
     align-items: center;
-    background-image: url(/img/paper_texture.jpg);
-    background-size: cover;
-    width: 95%;
-    margin-top: 15px;
-    padding-bottom: 20px;
-    min-height: 350px;
-    border-radius: 3px;
+    width: 300px;
+    margin-left: 50px;
 }
 
-#ajout {
-    color: #181818;
+#flashcash-account-money {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 300px;
+}
+
+#moula {
+    font-family: "Prosto One", serif;
+    font-size: 20px;
+    background-color: #cfd6e3;
+    color: black;
+    width: 200px;
+    padding: 10px 20px;
+    text-align: end;
+    border-radius: 15px;
+    border: solid 3px #007BFF;
+    box-shadow: 0px 0px 10px #007BFF;
+}
+
+.good i{
+    color: #00FF00;
+    font-size: 25px;
+}
+
+.good i:hover {
+    text-shadow: 0px 0px 5px #00FF00;
+}
+
+.bad i{
+    color:#FF0000;
+    font-size: 25px;
+}
+
+.bad i:hover {
+    text-shadow: 0px 0px 5px #FF0000;
+}
+
+.neutral i{
+    color:#888888;
+    font-size: 25px;
+}
+
+.iban {
+    font-family: "Prosto One", serif;
+    margin: 5px 0px;
+}
+
+.btn {
+    color: #222222;
     text-decoration: none;
-    margin: 5px;
-    margin-right: 12%;
+    font-family: "Prosto One", serif;
+    margin: 20px 0px;
+    background-color: #AAAAAA;
+    padding: 10px;
+    border-radius: 15px;
+    border: solid 3px #666666 ;
+}
+
+.btn:hover {
+    color: #007bff;
+    text-shadow: 0px 0px 5px #6eb4ff;
+    border-color: #007BFF;
+    box-shadow: 2px 4px 5px #222222, 0px 0px 10px #007BFF;
+}
+
+#add-friend {
+    font-size: 30px;
     align-self: flex-end;
+    margin-right: 10%;
+    margin-bottom: 20px;
 }
 
-table {
-    border: solid 1px white;
-    border-collapse: collapse;
-    width: 80%;
+#add-friend:hover i {
+    color: #007BFF;
+    text-shadow: 0px 0px 10px #007BFF;
 }
 
-thead {
-    border-bottom: solid 1px white;
+#liste-amis,
+#liste-transfer {
+    display: flex;
+    flex-wrap: wrap; /* Allows wrapping to multiple lines */
+    gap: 20px; /* Space between items */
+    width: -webkit-fill-available;
+    padding: 10px 120px 10px 80px;
+    justify-content: space-between; /* Distribute items evenly */
+}
+
+#liste-transfer div {
+    width: 100%;
+}
+
+.amis {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: gray;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    width: calc(25% - 20px); /* 4 items per row, accounting for gap */
+    transform: skew(-20deg); /* Creates the parallelogram effect */
+    position: relative;
+    transition: 0.5s;
+}
+
+.transfer {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: gray;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    transform: skew(-20deg); /* Creates the parallelogram effect */
+    position: relative;
+    transition: 0.5s;
+    width: 100%;
+}
+
+.fcTransfer {
+    padding: 0px;
+}
+
+.amis p,
+.transfer p {
+    font-size: 16px;
+    font-family: "Prosto One", serif;
+}
+
+.amis > *,
+.transfer > * {
+    transform: skew(20deg); /* Skew the text back to normal */
+}
+
+.amis:hover,
+.fcTransfer:hover {
+    transition: 0.5s;
+    transform: skew(-20deg) translateY(-10px) scale(1.05) rotateX(5deg); /* Lifts and tilts the item */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2), 0px 0px 10px #007BFF; /* Adds a shadow for the lifting effect */
+    cursor: pointer;
+}
+
+.good-transfer:hover {
+    transition: 0.5s;
+    transform: skew(-20deg) translateY(-10px) scale(1.05) rotateX(5deg); /* Lifts and tilts the item */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2), 0px 0px 10px #00FF00; /* Adds a shadow for the lifting effect */
+}
+
+.bad-transfer:hover {
+    transition: 0.5s;
+    transform: skew(-20deg) translateY(-10px) scale(1.05) rotateX(5deg); /* Lifts and tilts the item */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2), 0px 0px 10px #FF0000; /* Adds a shadow for the lifting effect */
 }
 
 td, th {
@@ -221,11 +380,81 @@ td a {
     min-height: 400px;
 }
 
-.formular form {
+form {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 30px;
+    margin: 10px;
+    gap: 20px;
+}
+
+.error {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    background-color: rgba(255, 0, 0, 0.2);
+    border: solid 2px red;
+    border-radius: 15px;
+    box-shadow: 0px 0px 10px red;
+}
+
+.error i {
+    color: red;
+    font-size: 40px;
+    text-shadow: 0px 0px 5px red;
+}
+
+.error p {
+    font-family: "Prosto One", serif;
+    color: red;
+    margin: 0px;
+}
+
+.money-input,
+.text-input input {
+    background-color: gainsboro;
+    border: solid 3px #007BFF;
+    border-radius: 15px;
+    padding-right: 5px;
+    color: black;
+}
+
+.money-input:focus-within,
+.text-input input:focus {
+    box-shadow: 0px 0px 10px #007BFF;
+}
+
+.text-input input {
+    font-family: "Prosto One", serif;
+    padding: 10px;
+    border-radius: 15px;
+    text-align: center;
+}
+
+.money-input input {
+    font-family: "Prosto One", serif;
+    background: none;
+    border: none;
+    padding: 10px;
+    padding-right: 0px;
+    border-radius: 15px;
+    color: black;
+    text-align: end;
+}
+
+.money-input input:focus,
+.text-input input:focus {
+    outline: none;
+}
+
+.money-input label {
+    font-family: "Prosto One", serif;
+    color: black;
+}
+
+#IBANinput {
+    width: 400px;
 }
 
 .element , .btns{

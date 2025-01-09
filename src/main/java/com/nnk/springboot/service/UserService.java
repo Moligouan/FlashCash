@@ -7,6 +7,8 @@ import com.nnk.springboot.repositories.UserRepository;
 import com.nnk.springboot.service.form.AddIbanForm;
 import com.nnk.springboot.service.form.DepotForm;
 import com.nnk.springboot.service.form.SignUpForm;
+import com.nnk.springboot.utils.IBANFormatter;
+import com.nnk.springboot.utils.IBANValidator;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -55,7 +57,10 @@ public class UserService {
 
     public void AddIban(AddIbanForm form, User user) {
         UserAccount account = user.getAccount();
-        String iban = form.getIban();
+        String iban = IBANFormatter.cleanIBAN(form.getIban());
+        if (!IBANValidator.isValidIBAN(iban)) {
+            throw new IllegalArgumentException("Invalid IBAN format.");
+        }
         account.setIban(iban);
         user.setAccount(account);
         userRepository.save(user);
@@ -63,6 +68,11 @@ public class UserService {
 
     public boolean checkUser(String email) {
         return userRepository.findUserByMail(email).isPresent();
+    }
+
+    public boolean checkRetrait(DepotForm form, User user) {
+        UserAccount userAccount = user.getAccount();
+        return form.getAmount() <= userAccount.getAmount();
     }
 
     public void transfer(DepotForm form, User user, Integer targetId) {
@@ -79,5 +89,10 @@ public class UserService {
         targetAccount.setAmount(transfer);
         target.setAccount(targetAccount);
         userRepository.save(target);
+    }
+
+    public User targeting(Integer targetId){
+        return userRepository.findUserById(targetId)
+                .orElseThrow(() -> new IllegalArgumentException("User not found with id: " + targetId));
     }
 }

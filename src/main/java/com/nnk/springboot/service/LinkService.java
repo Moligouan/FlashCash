@@ -35,4 +35,10 @@ public class LinkService {
 
         return link;
     }
+
+    public boolean checkLink(User user1, String user2Mail) {
+        User user2 = userRepository.findUserByMail(user2Mail)
+                .orElseThrow(() -> new IllegalArgumentException("User not found with email: " + user2Mail));
+        return linkRepository.existsByUsers(user1.getId(), user2.getId());
+    }
 }

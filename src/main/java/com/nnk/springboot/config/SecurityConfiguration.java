@@ -21,7 +21,7 @@ public class SecurityConfiguration {
 
         http
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/bootstrap.min.css", "/index.css", "/images/**", "/signin", "/signup", "/depot").permitAll()
+                        .requestMatchers("/bootstrap.min.css", "/js/**" , "/css/**", "/images/**", "/signin", "/signup").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin((form) -> form

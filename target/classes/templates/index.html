@@ -1,35 +1,59 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <title> Fulashu Cashu </title>
-    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+    <link rel="stylesheet" th:href="@{/css/spark.css}" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Gwendolyn:wght@400;700&family=Macondo+Swash+Caps&family=Pirata+One&family=UnifrakturMaguntia&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Prosto+One&display=swap" rel="stylesheet">
 </head>
+
 <body>
-<div th:replace="~{partial/header}"></div>
-<!--<div th:if="${#httpServletRequest.remoteUser != null}">-->
-<!--    <div th:replace="~{partial/menu}"></div>-->
-<!--</div>-->
-<div id="main">
-    <!-- <svg xmlns="http://www.w3.org/2000/svg" width="400" height="100" viewBox="0 0 400 100" id="logo">
-        <polygon points="60,10 40,50 70,50 50,90" fill="#007BFF"/>
-        <text x="90" y="65" font-size="30" fill="white">Flash Cash</text>
-    </svg> -->
-    <p th:text="${user.email}"></p>
-    <p th:text="${user.account.amount}"></p>
-    <a href="/depot">Add Money</a>
-    <span th:if="${user.account.iban != null}">
-        <p th:text="|${user.account.iban}|"></p>
-        <a href="/retrait">Retirer de l'argent</a>
-    </span>
-    <span th:if="${user.account.iban == null}">
-        <a href="/add-iban">Ajouter un Iban</a>
-        <p>pour retiter de l'argent</p>
-    </span>
-    <a href="/friends">Amis</a>
-<!--    <img th:src="@{/img/logo.png}">-->
-</div>
+    <div th:replace="~{partial/header}"></div>
+    <div id="main">
+        <h1 id="dynamic-header">Accueil</h1>
+        <div id="account-money">
+            <p id="moula" th:text="${user.account.amount} + ' ' + €"></p>
+            <a class="good" href="/depot" title="Déposer de l'argent"><i class="fa-solid fa-down-long"></i></a>
+            <a class="bad" href="/retrait" th:if="${user.account.iban != null}" title="Retirer de l'argent"><i
+                    class="fa-solid fa-up-long"></i></a>
+            <p class="neutral" th:if="${user.account.iban == null}" title="Retirer de l'argent"><i
+                    class="fa-solid fa-up-long"></i></p>
+        </div>
+        <p class="iban" th:if="${user.account.iban != null}"
+            th:text="IBAN + ' : ' + |${T(com.nnk.springboot.utils.IBANFormatter).formatIBAN(user.account.iban)}|"></p>
+        <p class="iban" th:if="${user.account.iban == null}"><a href="/add-iban">Ajouter un Iban</a> pour retiter de
+            l'argent</p>
+        <a class="btn spark-container" href="/historique">Historique</a>
+        <a class="btn" href="/friends">Mes Amis</a>
+        <!--    <img th:src="@{/img/logo.png}">-->
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Récupérer tous les éléments avec la classe "neutral"
+            const neutralElements = document.querySelectorAll(".neutral");
+
+            // Ajouter un écouteur d'événements à chaque élément
+            neutralElements.forEach(function (element) {
+                element.addEventListener("click", function () {
+                    // Changer la couleur des éléments avec la classe "iban"
+                    const ibanElements = document.querySelectorAll(".iban");
+                    ibanElements.forEach(function (ibanElement) {
+                        ibanElement.style.color = "red";
+                        ibanElement.querySelectorAll("a").forEach(function (link) {
+                            link.style.color = "red"; // Applique la couleur rouge aux <a> aussi
+                        });
+                    });
+                });
+            });
+        });
+    </script>
+    <script type="module" th:src="@{/js/scriptNeon.js}" defer></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script th:src="@{/js/spark.js}" defer></script>
 </body>
+
 </html>
