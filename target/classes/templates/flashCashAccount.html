@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title> Fulashu Cashu </title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+    <link rel="stylesheet" th:href="@{/css/spark.css}" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Prosto+One&display=swap" rel="stylesheet">
+</head>
+
+<body id="body-list">
+    <div th:replace="~{partial/header}"></div>
+    <div id="main">
+        <h1 id="dynamic-header">Compte Flash Cash</h1>
+        <div id="flashcash-account-money">
+            <p id="moula" th:text="${flashCash[0].totalAmount} + ' ' + €"></p>
+        </div>
+        <div id="liste-transfer">
+            <div th:each="transfer : ${flashCash}">
+                <div class="transfer fcTransfer">
+                    <p th:text="${transfer.flashCashAmount} + €"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Récupérer tous les éléments avec la classe "neutral"
+            const neutralElements = document.querySelectorAll(".neutral");
+
+            // Ajouter un écouteur d'événements à chaque élément
+            neutralElements.forEach(function (element) {
+                element.addEventListener("click", function () {
+                    // Changer la couleur des éléments avec la classe "iban"
+                    const ibanElements = document.querySelectorAll(".iban");
+                    ibanElements.forEach(function (ibanElement) {
+                        ibanElement.style.color = "red";
+                        ibanElement.querySelectorAll("a").forEach(function (link) {
+                            link.style.color = "red"; // Applique la couleur rouge aux <a> aussi
+                        });
+                    });
+                });
+            });
+        });
+    </script>
+    <script type="module" th:src="@{/js/scriptNeon.js}" defer></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script th:src="@{/js/spark.js}" defer></script>
+</body>
+
+</html>

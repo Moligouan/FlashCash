@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title> Fulashu Cashu </title>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Prosto+One&display=swap" rel="stylesheet">
+</head>
+
+<body>
+	<div th:replace="~{partial/header}"></div>
+	<div id="main">
+		<h1>Historique</h1>
+		<div id="liste-amis">
+			<!-- <div th:each="transfer : ${historiques}" class="amis">
+				<p th:text="AH"
+					th:title="${historiques.amount_before_fee}"></p>
+			</div> -->
+		</div>
+	</div>
+</body>
+
+</html>

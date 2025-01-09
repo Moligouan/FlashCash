@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title> Fulashu Cashu </title>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+	<link rel="stylesheet" th:href="@{/css/spark.css}" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Prosto+One&display=swap" rel="stylesheet">
+</head>
+
+<body id="body-list">
+	<div th:replace="~{partial/header}"></div>
+	<div id="main">
+		<h1 id="dynamic-header">Historique</h1>
+		<div id="liste-transfer">
+			<div th:each="transfer : ${historiques}">
+				<div th:if="${user.id != transfer.from.id}" class="transfer good-transfer">
+					<p th:text="${#temporals.format(transfer.date, 'dd/MM/yyyy HH:mm')}"></p>
+					<p th:text="'De ' + ${transfer.from.firstName}"></p>
+					<p th:text="'+ ' + ${transfer.amountAfterFee} + €"></p>
+				</div>
+				<div th:if="${user.id != transfer.to.id}" class="transfer bad-transfer">
+					<p th:text="${#temporals.format(transfer.date, 'dd/MM/yyyy HH:mm')}"></p>
+					<p th:text="'Vers ' + ${transfer.to.firstName}"></p>
+					<p th:text="'- ' + ${transfer.amountBeforeFee} + €"></p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script type="module" th:src="@{/js/scriptNeon.js}" defer></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script th:src="@{/js/spark.js}" defer></script>
+</body>
+
+</html>
