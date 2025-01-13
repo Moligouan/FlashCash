@@ -1,8 +1,8 @@
 <header id="neon">
   <a href="/">
     <svg xmlns="http://www.w3.org/2000/svg" width="400" height="100" viewBox="0 0 400 100" id="logo">
-      <polygon points="60,10 40,50 70,50 50,90" fill="#007BFF" />
-      <text x="90" y="65" font-size="30" fill="white">Flash Cash</text>
+      <polygon id="polygon" points="60,10 40,50 70,50 50,90" fill="#007BFF" />
+      <text id="logo-text" x="90" y="65" font-size="30" fill="white">Flash Cash</text>
     </svg>
   </a>
   <span th:if="${user != null}">
@@ -14,6 +14,9 @@
 
   <script>
     const header = document.getElementById('neon');
+    const svgElement = document.getElementById("logo");
+    const polygon = document.getElementById("polygon"); // Exemple : cibler le polygon
+    const text = document.getElementById("logo-text"); // Exemple : cibler le texte
 
     function flicker() {
       let timeOn;
@@ -48,6 +51,48 @@
         setTimeout(flicker, timeOff);
       }, timeOn);
     }
+
+    function flickered() {
+      let timeOn;
+      let timeOff;
+
+      // Temps pendant lequel la lumière reste allumée ou éteinte
+      if (Math.random() < 1 / 3) {
+        timeOn = 100; // 0,1s
+        timeOff = 100;
+      } else {
+        timeOn = Math.random() * 5500 + 500; // Entre 0.5s (500ms) et 10s (10000ms)
+        timeOff = Math.random() * 600 + 100; // Entre 0.1s (100ms) et 1s (1000ms) éteint
+      }
+
+      // Une chance sur 5 d'intensité réduite
+      if (Math.random() < 1 / 5) {
+        const reducedTime = Math.random() * 700 + 300; // Entre 0.3s (300ms) et 3s (3000ms)
+        polygon.setAttribute("fill", "rgba(0, 123, 225, 0.8)");
+        polygon.setAttribute("filter", "drop-shadow( 0px -5px 20px rgba(0, 123, 225, 0.8))"); // Intensité réduite
+        setTimeout(flickered, reducedTime); // Reprogrammer après la durée réduite
+        return;
+      }
+
+      // Allumer la lumière
+      polygon.setAttribute("fill", "rgba(0, 123, 255, 1)");
+      polygon.setAttribute("filter", "drop-shadow( 0px -5px 20px rgba(0, 123, 255, 1))");
+      setTimeout(() => {
+        // Éteindre la lumière
+        if (Math.random() < 1 / 8) {
+          polygon.setAttribute("fill", "rgba(0, 123, 225, 0.8)");
+          polygon.setAttribute("filter", "drop-shadow( 0px -5px 20px rgba(0, 123, 225, 0.8))");
+        } else {
+          polygon.setAttribute("fill", "rgba(0, 123, 255, 0.5)");
+          polygon.setAttribute("filter", "drop-shadow( 0px -5px 0px rgba(0, 123, 255, 0))");
+        }
+        // Reprogrammer après extinction
+        setTimeout(flickered, timeOff);
+      }, timeOn);
+    }
+
+    // Lancer l’effet de clignotement
+    flickered();
 
     // Lancer l’effet de clignotement
     flicker();

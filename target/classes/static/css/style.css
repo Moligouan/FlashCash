@@ -1,3 +1,13 @@
+:root {
+    --colors1: #0041A8, #0059D1, #006AFF, #3388FF, #66A3FF, #99BFFF, #CCE0FF, #E5F0FF;
+    --colors2: #3399FF, #66B2FF, #99CCFF, #CCE5FF, #E5F2FF, #F0F8FF, #F5FAFF, #FAFDFF;
+    --colors3: #0D47A1, #1565C0, #1976D2, #1E88E5, #2196F3, #42A5F5, #64B5F6, #90CAF9;
+    --colors4: #0056B3, #004999, #003D80, #003266, #00264D, #001933, #001020, #00080F;
+    --colors5: #ff8500, #ff9100, #ff9e00, #5a189a, #7b2cbf, #9d4edd, #ff6d00; /* purpleyellow */
+    --colors6: #250902, #38040e, #640d14, #800e13, #ad2831; /* redvar */
+    --colors7: #EE4540, #C72C41, #801336, #510A32, #2D142C; /* firstpalette */
+  }
+
 @font-face {
     font-family: 'Ethnocentric';
     src: url('../font/Ethnocentric.otf') format('opentype');
@@ -9,6 +19,10 @@
     color: white;
 }
 
+html, body{
+    height: 100%;
+}
+
 body {
     background-color: #4e5259;
     margin: 0;
@@ -16,10 +30,36 @@ body {
 
 #body-list {
     overflow: visible;
+    overflow-x: hidden;
+}
+
+.bck {
+    min-height: 100vh;
+    width: 100vw;
+    top: 0;
+    left: 0;
+    z-index: -1;
+  }
+
+.blur {
+    position: absolute;
+    min-height: 100%;
+    height: fit-content;
+    width: 100%;
+    backdrop-filter: blur(100px);
+    -webkit-backdrop-filter: blur(100px);
+}
+
+.orb {
+    position: absolute;
+    display: block;
+    border-radius: 100%;
+    opacity: 0.4;
+    z-index: -5;
 }
 
 header {
-    background-color: #080816;
+    background-color: rgba(8, 8, 22, 0.8);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -28,7 +68,6 @@ header {
     z-index: 2;
     box-shadow: 0px -5px 20px #007BFF;
     transition: box-shadow 0.15s;
-    /* animation: balancedFlicker 3s infinite; */
 }
 
 
@@ -93,7 +132,7 @@ header p {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: #4e5259;
+    /* background-color: #4e5259; */
     width: -webkit-fill-available;
     min-height: 400px;
     position: relative;
@@ -115,7 +154,7 @@ h1 span {
     text-shadow: 2px 2px 4px #000000;
     color: #ffffff;
   } */
-  
+
 h1 span.special {
     text-shadow: 0px 0px 5px red;
     /* color: #ff0000; */
@@ -124,7 +163,7 @@ h1 span.special {
 h1 span.special2 {
     text-shadow: 0px 0px 5px green;
 }
-  
+
 
 #main h2 {
     font-family: "Prosto One", serif;
@@ -139,6 +178,10 @@ h1 span.special2 {
 
 .svg:hover {
     filter: drop-shadow(0px 0px 5px #007BFF);
+}
+
+.svg-bad:hover {
+    filter: drop-shadow(0px 0px 5px red);
 }
 
 #account-money {
@@ -169,7 +212,7 @@ h1 span.special2 {
     box-shadow: 0px 0px 10px #007BFF;
 }
 
-.good i{
+.good i {
     color: #00FF00;
     font-size: 25px;
 }
@@ -178,8 +221,8 @@ h1 span.special2 {
     text-shadow: 0px 0px 5px #00FF00;
 }
 
-.bad i{
-    color:#FF0000;
+.bad i {
+    color: #FF0000;
     font-size: 25px;
 }
 
@@ -187,8 +230,8 @@ h1 span.special2 {
     text-shadow: 0px 0px 5px #FF0000;
 }
 
-.neutral i{
-    color:#888888;
+.neutral i {
+    color: #888888;
     font-size: 25px;
 }
 
@@ -205,7 +248,7 @@ h1 span.special2 {
     background-color: #AAAAAA;
     padding: 10px;
     border-radius: 15px;
-    border: solid 3px #666666 ;
+    border: solid 3px #666666;
 }
 
 .btn:hover {
@@ -230,11 +273,14 @@ h1 span.special2 {
 #liste-amis,
 #liste-transfer {
     display: flex;
-    flex-wrap: wrap; /* Allows wrapping to multiple lines */
-    gap: 20px; /* Space between items */
+    flex-wrap: wrap;
+    /* Allows wrapping to multiple lines */
+    gap: 20px;
+    /* Space between items */
     width: -webkit-fill-available;
     padding: 10px 120px 10px 80px;
-    justify-content: space-between; /* Distribute items evenly */
+    justify-content: space-between;
+    /* Distribute items evenly */
 }
 
 #liste-transfer div {
@@ -249,10 +295,22 @@ h1 span.special2 {
     color: white;
     padding: 20px;
     text-align: center;
-    width: calc(25% - 20px); /* 4 items per row, accounting for gap */
-    transform: skew(-20deg); /* Creates the parallelogram effect */
+    width: calc(25% - 20px);
+    /* 4 items per row, accounting for gap */
+    transform: skew(-20deg);
+    /* Creates the parallelogram effect */
     position: relative;
-    transition: 0.5s;
+    /* transition: 0.5s; */
+    transition: 0.5s, opacity 0.5s ease, width 0.5s ease;
+    box-shadow: 0px 0px 15px #0041A8;
+    overflow: hidden;
+}
+
+.amis.collapse {
+    opacity: 0;
+    width: 0;
+    padding: 0;
+    margin: 0;
 }
 
 .transfer {
@@ -263,7 +321,8 @@ h1 span.special2 {
     color: white;
     padding: 20px;
     text-align: center;
-    transform: skew(-20deg); /* Creates the parallelogram effect */
+    transform: skew(-20deg);
+    /* Creates the parallelogram effect */
     position: relative;
     transition: 0.5s;
     width: 100%;
@@ -279,38 +338,53 @@ h1 span.special2 {
     font-family: "Prosto One", serif;
 }
 
-.amis > *,
-.transfer > * {
-    transform: skew(20deg); /* Skew the text back to normal */
+.amis>*,
+.transfer>* {
+    transform: skew(20deg);
+    /* Skew the text back to normal */
 }
 
 .amis:hover,
 .fcTransfer:hover {
     transition: 0.5s;
-    transform: skew(-20deg) translateY(-10px) scale(1.05) rotateX(5deg); /* Lifts and tilts the item */
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2), 0px 0px 10px #007BFF; /* Adds a shadow for the lifting effect */
+    transform: skew(-20deg) translateY(-10px) scale(1.05) rotateX(5deg);
+    /* Lifts and tilts the item */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2), 0px 0px 20px #007BFF;
+    /* Adds a shadow for the lifting effect */
     cursor: pointer;
+}
+
+.amis:hover {
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2), 0px 0px 20px #99BFFF;
 }
 
 .good-transfer:hover {
     transition: 0.5s;
-    transform: skew(-20deg) translateY(-10px) scale(1.05) rotateX(5deg); /* Lifts and tilts the item */
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2), 0px 0px 10px #00FF00; /* Adds a shadow for the lifting effect */
+    transform: skew(-20deg) translateY(-10px) scale(1.05) rotateX(5deg);
+    /* Lifts and tilts the item */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2), 0px 0px 10px #00FF00;
+    /* Adds a shadow for the lifting effect */
 }
 
 .bad-transfer:hover {
     transition: 0.5s;
-    transform: skew(-20deg) translateY(-10px) scale(1.05) rotateX(5deg); /* Lifts and tilts the item */
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2), 0px 0px 10px #FF0000; /* Adds a shadow for the lifting effect */
+    transform: skew(-20deg) translateY(-10px) scale(1.05) rotateX(5deg);
+    /* Lifts and tilts the item */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2), 0px 0px 10px #FF0000;
+    /* Adds a shadow for the lifting effect */
 }
 
-td, th {
+td,
+th {
     color: white;
     border: solid 1px white;
     text-align: center;
 }
 
-th , #ajout, .element label, .btns{
+th,
+#ajout,
+.element label,
+.btns {
     font-family: "Quintessential", serif;
     font-weight: 400;
     font-style: normal;
@@ -327,27 +401,27 @@ tr:nth-child(2n) td {
     font-family: "Shadows Into Light", cursive;
     font-weight: 400;
     font-style: normal;
-} 
+}
 
 tr:nth-child(3n + 1) td {
     font-family: "Indie Flower", cursive;
     font-weight: 400;
     font-style: normal;
-} 
+}
 
 tr:nth-child(4n + 2) td {
     font-family: "Reenie Beanie", serif;
     font-weight: 400;
     font-style: normal;
     font-size: 20px;
-} 
+}
 
 tr:nth-child(5n + 3) td {
     font-family: "Over the Rainbow", cursive;
     font-weight: 400;
     font-style: normal;
     font-size: 12px;
-} 
+}
 
 td a {
     color: #181818;
@@ -361,7 +435,7 @@ td a {
     background-image: url(/img/new_paper_texture.jpg);
     background-size: cover;
     margin: 0px 200px;
-    position:absolute;
+    position: absolute;
     border-radius: 3px;
     width: -webkit-fill-available;
     min-height: 400px;
@@ -374,7 +448,7 @@ td a {
     background-image: url(/img/used_paper_texture.jpg);
     background-size: cover;
     margin: 0px 200px;
-    position:absolute;
+    position: absolute;
     border-radius: 3px;
     width: -webkit-fill-available;
     min-height: 400px;
@@ -457,7 +531,136 @@ form {
     width: 400px;
 }
 
-.element , .btns{
+.MdpMore {
+    display: none;
+    max-height: 0;
+    /* Hauteur initiale */
+    overflow: hidden;
+    /* Empêche le débordement */
+    opacity: 0;
+    /* Initialement invisible */
+    transition: max-height 0.3s ease, opacity 0.3s ease;
+}
+
+.MdpMore.visible {
+    max-height: 250px;
+    /* Hauteur maximale appropriée */
+    opacity: 1;
+}
+
+#MdpRegex span {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#MdpRegex .indicator {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-left: 10px;
+    display: inline-block;
+    background-color: red;
+    /* Rouge par défaut */
+    transition: background-color 0.3s ease;
+    border: solid 2px rgba(0, 0, 0, 0.5);
+    box-shadow: 0px 0px 6px red;
+}
+
+#MdpRegex span.success .indicator {
+    background-color: green;
+    /* Vert lorsque la condition est remplie */
+    box-shadow: 0px 0px 6px green;
+}
+
+#MdpRegex p {
+    font-family: "Prosto One", serif;
+    font-size: 13px;
+    margin: 10px 0px;
+}
+
+/* BARRE DE PROGRESSION */
+
+#passwordStrengthContainer {
+    width: 100%;
+    margin-top: 10px;
+    position: relative;
+}
+
+#strengthBar {
+    width: 100%;
+    height: 10px;
+    appearance: none;
+    border: none;
+    background-color: #e0e0e0;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+#strengthBar::-webkit-progress-bar {
+    border-radius: 5px;
+}
+
+/* Couleurs de progression pour la barre */
+#strengthBar::-webkit-progress-value {
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px #007BFF;
+    transition: all 0.3s ease;
+}
+
+#strengthBar.weak::-webkit-progress-value {
+    background-color: #ff4d4d;
+    box-shadow: 0 0 10px rgba(255, 77, 77, 1);
+}
+
+#strengthBar.medium::-webkit-progress-value {
+    background-color: #ffc107;
+    box-shadow: 0 0 10px rgba(255, 193, 7, 0.6);
+}
+
+#strengthBar.strong::-webkit-progress-value {
+    background-color: #4caf50;
+    box-shadow: 0 0 10px rgba(76, 175, 80, 0.6);
+}
+
+#strengthBar.very-strong::-webkit-progress-value {
+    background-color: #007bff;
+    box-shadow: 0 0 10px rgba(0, 123, 255, 0.6);
+}
+
+/* Couleurs pour le label */
+#strengthLabel {
+    font-family: "Prosto One", serif;
+    display: block;
+    margin-top: 5px;
+    font-size: 14px;
+    text-align: center;
+    transition: color 0.3s ease;
+}
+
+#strengthLabel.weak {
+    color: #ff4d4d;
+}
+
+#strengthLabel.medium {
+    color: #ffc107;
+}
+
+#strengthLabel.strong {
+    color: #4caf50;
+}
+
+#strengthLabel.very-strong {
+    color: #007bff;
+}
+
+
+
+
+
+
+.element,
+.btns {
     display: flex;
     align-items: center;
     width: 100%;
@@ -475,7 +678,7 @@ form {
     padding-right: 10%;
 }
 
-.element div input{
+.element div input {
     color: black;
     width: 100%;
     background: none;

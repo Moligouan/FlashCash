@@ -11,17 +11,19 @@
     <link href="https://fonts.googleapis.com/css2?family=Prosto+One&display=swap" rel="stylesheet">
 </head>
 
-<body id="body-list">
-    <div th:replace="~{partial/header}"></div>
-    <div id="main">
-        <h1 id="dynamic-header">Compte Flash Cash</h1>
-        <div id="flashcash-account-money">
-            <p id="moula" th:text="${flashCash[0].totalAmount} + ' ' + €"></p>
-        </div>
-        <div id="liste-transfer">
-            <div th:each="transfer : ${flashCash}">
-                <div class="transfer fcTransfer">
-                    <p th:text="${transfer.flashCashAmount} + €"></p>
+<body id="body-list" class="bck">
+    <div id="blured" class="blur">
+        <div th:replace="~{partial/header}"></div>
+        <div id="main">
+            <h1 id="dynamic-header">Compte Flash Cash</h1>
+            <div id="flashcash-account-money">
+                <p id="moula" th:text="${flashCash[0].totalAmount} + ' ' + €"></p>
+            </div>
+            <div id="liste-transfer">
+                <div th:each="transfer : ${flashCash}">
+                    <div class="transfer fcTransfer">
+                        <p th:text="${transfer.flashCashAmount} + €"></p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -49,6 +51,7 @@
     <script type="module" th:src="@{/js/scriptNeon.js}" defer></script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script th:src="@{/js/spark.js}" defer></script>
+    <script th:src="@{/js/background.js}" defer></script>
 </body>
 
 </html>

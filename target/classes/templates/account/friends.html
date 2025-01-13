@@ -1,45 +1,58 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <title> Fulashu Cashu </title>
-    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+	<title> Fulashu Cashu </title>
+	<link rel="stylesheet" th:href="@{/css/style.css}" />
 	<link rel="stylesheet" th:href="@{/css/spark.css}" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Prosto+One&display=swap" rel="stylesheet">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+	<link href="https://fonts.googleapis.com/css2?family=Prosto+One&display=swap" rel="stylesheet">
 </head>
 
-<body id="body-list">
-	<div th:replace="~{partial/header}"></div>
-	<div id="main">
-		<h1 id="dynamic-header">Liste d'amis</h1>
-		<a id="add-friend" href="/add-friend" title="Ajouter un amis"><i class="fa-solid fa-user-plus"></i></a>
-		<div id="liste-amis">
-			<div th:each="link : ${user.links}" class="amis">
-				<p th:text="|${link.user2.firstName} ${link.user2.lastName}|"
-					th:title="${link.user2.email}"></p>
-				<a th:href="@{/transfer/{id}(id=${link.user2.id})}" title="Transférer de l'argent">
-					<svg class="svg" version="1.0" xmlns="http://www.w3.org/2000/svg" width="32.000000pt"
-						height="32.000000pt" viewBox="0 0 32.000000 32.000000" preserveAspectRatio="xMidYMid meet">
+<body id="body-list" class="bck">
+	<div id="blured" class="blur">
+		<div th:replace="~{partial/header}"></div>
+		<div id="main">
+			<h1 id="dynamic-header">Liste d'amis</h1>
+			<a id="add-friend" href="/add-friend" title="Ajouter un amis"><i class="fa-solid fa-user-plus"></i></a>
+			<div id="liste-amis">
+				<div th:each="link : ${user.links}" class="amis">
+					<p th:text="|${link.user2.firstName} ${link.user2.lastName}|" th:title="${link.user2.email}">
+					</p>
+					<a th:href="@{/transfer/{id}(id=${link.user2.id})}" title="Transférer de l'argent">
+						<svg class="svg" version="1.0" xmlns="http://www.w3.org/2000/svg" width="32.000000pt"
+							height="32.000000pt" viewBox="0 0 32.000000 32.000000" preserveAspectRatio="xMidYMid meet">
 
-						<g transform="translate(0.000000,32.000000) scale(0.100000,-0.100000)" fill="#007BFF"
-							stroke="none">
-							<path d="M140 260 c0 -6 9 -14 20 -18 19 -7 18 -10 -15 -42 -19 -19 -35 -38
+							<g transform="translate(0.000000,32.000000) scale(0.100000,-0.100000)" fill="#007BFF"
+								stroke="none">
+								<path d="M140 260 c0 -6 9 -14 20 -18 19 -7 18 -10 -15 -42 -19 -19 -35 -38
 						   -35 -42 0 -17 26 -7 57 24 27 27 33 29 39 15 12 -32 24 -17 24 28 l0 45 -45 0
 						   c-25 0 -45 -5 -45 -10z" />
-							<path d="M155 140 c-26 -27 -31 -29 -41 -15 -18 25 -24 18 -24 -30 l0 -45 45
+								<path d="M155 140 c-26 -27 -31 -29 -41 -15 -18 25 -24 18 -24 -30 l0 -45 45
 						   0 c47 0 60 15 25 28 -19 7 -18 10 15 42 19 19 35 38 35 42 0 18 -28 6 -55 -22z" />
-						</g>
-					</svg>
-				</a>
-				<!-- <a th:href="@{/bidList/delete/{id}(id=${bid.BidListId})}">Delete</a> -->
+							</g>
+						</svg>
+					</a>
+					<a class="confirm-link" th:href="@{/delete-friend/{id}(id=${link.user2.id})}" title="Supprimer amis">
+						<svg class="svg-bad" version="1.0" xmlns="http://www.w3.org/2000/svg" width="32.000000pt" height="32.000000pt" viewBox="0 0 32.000000 32.000000" preserveAspectRatio="xMidYMid meet">
+
+							<g transform="translate(32.000000,32.000000) scale(-0.006250,-0.006250)" fill="#FF0000" stroke="none">
+							<path d="M935 4790 c-284 -12 -390 -55 -402 -163 -9 -79 55 -201 202 -384 68 -85 468 -553 695 -813 719 -825 870 -1000 870 -1008 0 -5 -69 -106 -153 -224 -356 -498 -600 -900 -666 -1095 -28 -83 -28 -189 -1 -242 69 -135 237 -135 398 1 28 24 205 221 393 438 425 490 499 575 507 577 7 2 227 -250 857 -977 368 -426 372 -429 459 -491 223 -158 449 -99 486 126 18 112 -12 226 -116 435 -168 338 -500 846 -1014 1548 -48 66 -51 74 -38 90 8 9 136 157 284 327 692 796 804 931 853 1029 71 139 31 205 -139 235 -90 15 -505 16 -561 1 -150 -41 -274 -166 -764 -770 -87 -107 -161 -196 -165 -198 -4 -2 -92 104 -196 235 -372 471 -739 912 -913 1096 -46 48 -116 109 -156 136 -148 99 -240 110 -720 91z"/>
+							</g>
+							</svg>
+					</a>
+					<!-- <a th:href="@{/bidList/delete/{id}(id=${bid.BidListId})}">Delete</a> -->
+				</div>
 			</div>
 		</div>
 	</div>
 	<script type="module" th:src="@{/js/scriptNeon.js}" defer></script>
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <script th:src="@{/js/spark.js}" defer></script>
+	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+	<script th:src="@{/js/spark.js}" defer></script>
+	<script th:src="@{/js/background.js}" defer></script>
+	<script type="module" th:src="@{/js/friends.js}" defer></script>
 </body>
 
 </html>

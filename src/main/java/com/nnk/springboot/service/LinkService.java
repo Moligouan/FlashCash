@@ -41,4 +41,15 @@ public class LinkService {
                 .orElseThrow(() -> new IllegalArgumentException("User not found with email: " + user2Mail));
         return linkRepository.existsByUsers(user1.getId(), user2.getId());
     }
+
+    public void deleteLink(User user1, User user2) {
+        Link link = linkRepository.selectByUsers(user1.getId(), user2.getId())
+                .orElseThrow(() -> new IllegalArgumentException("User not found with these users"));;
+        boolean removed = user1.getLinks().remove(link);
+        if (!removed) {
+            throw new IllegalStateException("The link was not found in user1's links");
+        }
+        userRepository.save(user1);
+        linkRepository.delete(link);
+    }
 }

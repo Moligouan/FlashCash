@@ -19,8 +19,8 @@ export function generateSpark(element) {
     spark.style.height = `${size}px`;
 
     // Random position within the element's bounds
-    spark.style.left = `${rect.left + Math.random() * rect.width}px`;
-    spark.style.top = `${rect.top + Math.random() * rect.height}px`;
+    spark.style.left = `${rect.left + window.scrollX + Math.random() * rect.width}px`;
+    spark.style.top = `${rect.top + window.scrollY + Math.random() * rect.height}px`;
     spark.style.backgroundColor = config.colors[Math.floor(Math.random() * config.colors.length)];
 
     // Add the glow effect

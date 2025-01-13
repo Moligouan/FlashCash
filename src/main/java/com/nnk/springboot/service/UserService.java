@@ -27,6 +27,26 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
+    public boolean isPasswordValid(String password) {
+        if (password.length() < 8) {
+            return false; // Moins de 8 caractères
+        }
+        if (!password.matches(".*[A-Z].*")) {
+            return false; // Pas de majuscule
+        }
+        if (!password.matches(".*[a-z].*")) {
+            return false; // Pas de minuscule
+        }
+        if (!password.matches(".*\\d.*")) {
+            return false; // Pas de chiffre
+        }
+        if (!password.matches(".*[@#$%^&+=!_?<>*(){}\\[\\]\\\\|~`\"';:.,].*")) {
+            return false; // Pas de caractère spécial
+        }
+        return true; // Tous les critères sont remplis
+    }
+
+
     public User registration(SignUpForm form) {
         User user = new User();
         UserAccount account = new UserAccount();

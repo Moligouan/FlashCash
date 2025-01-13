@@ -54,12 +54,16 @@ public class UserController {
     @PostMapping("/signup")
     public String processRequest(Model model, @ModelAttribute("signUpForm") SignUpForm form)
     {
-        if (Objects.equals(form.getPassword(), form.getConfirmPassword())) {
+        if (!userService.isPasswordValid(form.getPassword())){
+            model.addAttribute("errorMessageMdp", "Erreur : Mot de Passe invalide.");
+            return "signup";
+        }
+        if (!Objects.equals(form.getPassword(), form.getConfirmPassword())) {
+            model.addAttribute("errorMessageMdpConfirm", "Erreur : Mots de Passes non identiques.");
+            return "signup";
+        } else {
             userService.registration(form);
             return "redirect:/signin";
-        } else {
-            model.addAttribute("errorMessageMdp", "Erreur : Mots de Passes non identiques.");
-            return "signup";
         }
     }
 
@@ -164,5 +168,14 @@ public class UserController {
             linkService.createLink(user, form.getEmail());
             return "redirect:/";
         }
+    }
+
+    @GetMapping("/delete-friend/{id}")
+    public String deleteFriend(@PathVariable("id") Integer targetId, Model model) {
+        User user = sessionService.sessionUser();
+        User target = userService.targeting(targetId);
+        linkService.deleteLink(user, target);
+        model.addAttribute("user", user);
+        return "account/friends";
     }
 }
